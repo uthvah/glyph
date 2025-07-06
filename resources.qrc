@@ -1,0 +1,17 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+<qresource prefix="/">
+    <file>styles/modern_glyph.qss</file>
+    <file>icons/search.svg</file>
+    <file>icons/plus.svg</file>
+    <file>icons/settings.svg</file>
+    <file>icons/arrow-left.svg</file>
+    <file>icons/edit.svg</file>
+    <file>icons/check.svg</file>
+    <file>icons/x.svg</file>
+    <file>icons/eye.svg</file>
+    <file>icons/copy.svg</file>
+    <file>icons/trash.svg</file>
+    <file>icons/refresh.svg</file>
+</qresource>
+</RCC>

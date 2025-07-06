@@ -1,0 +1,62 @@
+# Python
+# -------------------------------------------------------------------
+# Byte-compiled / optimized / C-extensions
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environments
+# Add your virtual environment directory name here
+venv/
+.venv/
+env/
+.env
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+*.spec
+
+
+# Application Data
+# -------------------------------------------------------------------
+# NEVER commit your personal vault, salt, or settings files.
+# This prevents them from being added if created in the project root during testing.
+vault.bin
+master.bin
+vault.hmac
+settings.json
+
+
+# Editor/IDE specific
+# -------------------------------------------------------------------
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/
+
+
+# Operating System specific
+# -------------------------------------------------------------------
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+
+# Optional: Generated Qt Resource File
+# -------------------------------------------------------------------
+# For a simple project, it's okay to commit resources_rc.py.
+# If you prefer to have every developer generate it themselves,
+# uncomment the line below.
+# resources_rc.py
