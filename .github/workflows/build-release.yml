@@ -54,12 +54,7 @@ jobs:
 
     - name: Build with PyInstaller (Windows)
       if: runner.os == 'Windows'
-      run: |
-        pyinstaller --name Glyph \
-                    --onefile \
-                    --windowed \
-                    --icon="glyph.ico" \
-                    glyph.py
+      run: pyinstaller --name Glyph --onefile --windowed --icon="glyph.ico" glyph.py
     
     - name: Prepare Artifacts for Release
       if: runner.os == 'Linux'
