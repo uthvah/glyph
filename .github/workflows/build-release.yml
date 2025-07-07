@@ -101,6 +101,6 @@ jobs:
           prerelease: false
           body_path: README.md
           files: |
-            artifacts/Glyph-Windows/*
-            artifacts/Glyph-macOS/*
-            artifacts/Glyph-Linux/*
+            artifacts/Glyph-Windows/release/*
+            artifacts/Glyph-macOS/release/*
+            artifacts/Glyph-Linux/release/*
