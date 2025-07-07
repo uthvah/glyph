@@ -19,7 +19,7 @@
 ---
 
 <p align="center">
-  <img src="images/1.png" alt="Glyph Command Bar" width="800"/>
+  <img src="images/1.png" alt="Glyph Command Bar" width="750"/>
 </p>
 
 <p align="center">
