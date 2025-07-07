@@ -91,13 +91,14 @@ jobs:
         with:
           path: artifacts
 
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          # This creates a draft release. Remove 'draft: true' to publish immediately.
           draft: false
           prerelease: false
-          # The body of the release. Uses the tag message.
           body_path: README.md
           files: |
             artifacts/Glyph-Windows/*
