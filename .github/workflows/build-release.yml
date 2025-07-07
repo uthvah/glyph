@@ -1,16 +1,14 @@
 name: Build and Release Glyph
 
-# This workflow runs when a new tag is pushed that starts with 'v' (e.g., v1.0.0, v1.1.2)
+# Runs when a new tag starting with 'v' is pushed (e.g., v1.0.0)
 on:
   push:
     tags:
       - 'v*'
 
 jobs:
-  # Job 1: Build the application on all three platforms
   build:
     name: Build on ${{ matrix.os }}
-    # Use a matrix strategy to run this job on all 3 OSes in parallel
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
@@ -18,72 +16,74 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-    - name: Checkout repository code
-      uses: actions/checkout@v4
+      - name: Checkout repository code
+        uses: actions/checkout@v4
 
-    - name: Set up Python 3.11
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install pyinstaller pyside6 argon2-cffi cryptography
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller pyside6 argon2-cffi cryptography
 
-    - name: Compile Qt Resources
-      run: pyside6-rcc resources.qrc -o resources_rc.py
+      - name: Compile Qt Resources
+        run: pyside6-rcc resources.qrc -o resources_rc.py
 
-    - name: Build with PyInstaller (Linux)
-      if: runner.os == 'Linux'
-      run: |
-        pyinstaller --name Glyph \
-                    --onefile \
-                    --windowed \
-                    --add-data "glyph.png:." \
-                    glyph.py
+      - name: Build with PyInstaller (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          pyinstaller --name Glyph \
+                      --onefile \
+                      --windowed \
+                      --add-data "glyph.png:." \
+                      glyph.py
 
-    - name: Build with PyInstaller (macOS)
-      if: runner.os == 'macOS'
-      run: |
-        pyinstaller --name Glyph \
-                    --onefile \
-                    --windowed \
-                    --icon="glyph.icns" \
-                    glyph.py
+      - name: Build with PyInstaller (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          pyinstaller --name Glyph \
+                      --onefile \
+                      --windowed \
+                      --icon="glyph.icns" \
+                      glyph.py
 
-    - name: Build with PyInstaller (Windows)
-      if: runner.os == 'Windows'
-      run: pyinstaller --name Glyph --onefile --windowed --icon="glyph.ico" glyph.py
-    
-    - name: Prepare Artifacts for Release
-      if: runner.os == 'Linux'
-      run: |
-        mkdir release
-        mv dist/Glyph release/Glyph-Linux-x86_64
-    - name: Prepare Artifacts for Release
-      if: runner.os == 'macOS'
-      run: |
-        mkdir release
-        mv dist/Glyph release/Glyph-macOS.app
-    - name: Prepare Artifacts for Release
-      if: runner.os == 'Windows'
-      run: |
-        mkdir release
-        mv dist/Glyph.exe release/Glyph-Windows.exe
+      - name: Build with PyInstaller (Windows)
+        if: runner.os == 'Windows'
+        run: pyinstaller --name Glyph --onefile --windowed --icon="glyph.ico" glyph.py
 
-    - name: Upload Build Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: Glyph-${{ runner.os }}
-        path: release/
+      - name: Prepare Artifacts for Release (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          mkdir -p release
+          mv dist/Glyph release/Glyph-Linux-x86_64
 
-  # Job 2: Create the GitHub Release after all builds are successful
+      - name: Prepare Artifacts for Release (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          mkdir -p release
+          mv dist/Glyph release/Glyph-macOS.app
+
+      - name: Prepare Artifacts for Release (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          mkdir -p release
+          mv dist/Glyph.exe release/Glyph-Windows.exe
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Glyph-${{ runner.os }}
+          path: release/
+
   release:
     name: Create GitHub Release
-    # This job depends on the 'build' job finishing successfully for all OSes
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Download all build artifacts
