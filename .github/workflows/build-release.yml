@@ -1,10 +1,9 @@
 name: Build and Release Glyph
 
-# Runs when a new tag starting with 'v' is pushed (e.g., v1.0.0)
 on:
   push:
     tags:
-      - 'v*'
+      - 'v*'  # Runs when a tag like v1.0.0 is pushed
 
 jobs:
   build:
@@ -52,25 +51,23 @@ jobs:
 
       - name: Build with PyInstaller (Windows)
         if: runner.os == 'Windows'
-        run: pyinstaller --name Glyph --onefile --windowed --icon="glyph.ico" glyph.py
+        run: |
+          pyinstaller --name Glyph \
+                      --onefile \
+                      --windowed \
+                      --icon="glyph.ico" \
+                      glyph.py
 
-      - name: Prepare Artifacts for Release (Linux)
-        if: runner.os == 'Linux'
+      - name: Prepare Artifacts for Release
         run: |
           mkdir -p release
-          mv dist/Glyph release/Glyph-Linux-x86_64
-
-      - name: Prepare Artifacts for Release (macOS)
-        if: runner.os == 'macOS'
-        run: |
-          mkdir -p release
-          mv dist/Glyph release/Glyph-macOS.app
-
-      - name: Prepare Artifacts for Release (Windows)
-        if: runner.os == 'Windows'
-        run: |
-          mkdir -p release
-          mv dist/Glyph.exe release/Glyph-Windows.exe
+          if [ "$RUNNER_OS" == "Linux" ]; then
+            mv dist/Glyph release/Glyph-Linux-x86_64
+          elif [ "$RUNNER_OS" == "macOS" ]; then
+            mv dist/Glyph release/Glyph-macOS.app
+          elif [ "$RUNNER_OS" == "Windows" ]; then
+            mv dist/Glyph.exe release/Glyph-Windows.exe
+          fi
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
@@ -101,6 +98,6 @@ jobs:
           prerelease: false
           body_path: README.md
           files: |
-            artifacts/Glyph-Windows/release/*
-            artifacts/Glyph-macOS/release/*
-            artifacts/Glyph-Linux/release/*
+            artifacts/Glyph-Windows/**
+            artifacts/Glyph-macOS/**
+            artifacts/Glyph-Linux/**
