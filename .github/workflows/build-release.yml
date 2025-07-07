@@ -26,34 +26,23 @@ jobs:
       with:
         python-version: '3.11'
 
-    - name: Install Qt Dependencies (Linux only)
-      if: runner.os == 'Linux'
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xinerama0 libxcb-xinput0 libegl1 libopengl0 xvfb
-
-    - name: Install Python dependencies
+    - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install pyinstaller pyside6 argon2-cffi cryptography
 
     - name: Compile Qt Resources
-      # On Linux, wrap this command in xvfb-run
-      if: runner.os == 'Linux'
-      run: xvfb-run --auto-servernum pyside6-rcc resources.qrc -o resources_rc.py
-      # On other OSes, run normally
-      if: runner.os != 'Linux'
       run: pyside6-rcc resources.qrc -o resources_rc.py
 
-    - name: Build with PyInstaller
-      # On Linux, wrap this command in xvfb-run
+    - name: Build with PyInstaller (Linux)
       if: runner.os == 'Linux'
       run: |
-        xvfb-run --auto-servernum pyinstaller --name Glyph \
+        pyinstaller --name Glyph \
                     --onefile \
                     --windowed \
+                    --add-data "glyph.png:." \
                     glyph.py
-    # On other OSes, run normally
+
     - name: Build with PyInstaller (macOS)
       if: runner.os == 'macOS'
       run: |
@@ -62,6 +51,7 @@ jobs:
                     --windowed \
                     --icon="glyph.icns" \
                     glyph.py
+
     - name: Build with PyInstaller (Windows)
       if: runner.os == 'Windows'
       run: |
@@ -72,28 +62,26 @@ jobs:
                     glyph.py
     
     - name: Prepare Artifacts for Release
-      id: prep_artifacts # Give this step an ID
+      if: runner.os == 'Linux'
       run: |
-        if [ "$RUNNER_OS" == "Linux" ]; then
-          mkdir release && mv dist/Glyph release/Glyph-Linux-x86_64
-          echo "artifact_path=release/Glyph-Linux-x86_64" >> $GITHUB_OUTPUT
-          echo "artifact_name=Glyph-Linux-x86_64" >> $GITHUB_OUTPUT
-        elif [ "$RUNNER_OS" == "macOS" ]; then
-          mkdir release && zip -r release/Glyph-macOS.zip dist/Glyph.app
-          echo "artifact_path=release/Glyph-macOS.zip" >> $GITHUB_OUTPUT
-          echo "artifact_name=Glyph-macOS.zip" >> $GITHUB_OUTPUT
-        elif [ "$RUNNER_OS" == "Windows" ]; then
-          mkdir release && mv dist/Glyph.exe release/Glyph-Windows.exe
-          echo "artifact_path=release/Glyph-Windows.exe" >> $GITHUB_OUTPUT
-          echo "artifact_name=Glyph-Windows.exe" >> $GITHUB_OUTPUT
-        fi
-      shell: bash
+        mkdir release
+        mv dist/Glyph release/Glyph-Linux-x86_64
+    - name: Prepare Artifacts for Release
+      if: runner.os == 'macOS'
+      run: |
+        mkdir release
+        mv dist/Glyph release/Glyph-macOS.app
+    - name: Prepare Artifacts for Release
+      if: runner.os == 'Windows'
+      run: |
+        mkdir release
+        mv dist/Glyph.exe release/Glyph-Windows.exe
 
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ steps.prep_artifacts.outputs.artifact_name }}
-        path: ${{ steps.prep_artifacts.outputs.artifact_path }}
+        name: Glyph-${{ runner.os }}
+        path: release/
 
   # Job 2: Create the GitHub Release after all builds are successful
   release:
@@ -102,25 +90,21 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
 
-    permissions:
-      contents: write # This is required to create a release
-
     steps:
       - name: Download all build artifacts
         uses: actions/download-artifact@v4
         with:
           path: artifacts
-      
-      - name: List downloaded files
-        run: ls -R artifacts
 
       - name: Create Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v1
         with:
           # This creates a draft release. Remove 'draft: true' to publish immediately.
           draft: false
           prerelease: false
+          # The body of the release. Uses the tag message.
+          body_path: README.md
           files: |
-            artifacts/Glyph-Windows.exe/*
-            artifacts/Glyph-macOS.zip/*
-            artifacts/Glyph-Linux-x86_64/*
+            artifacts/Glyph-Windows/*
+            artifacts/Glyph-macOS/*
+            artifacts/Glyph-Linux/*
