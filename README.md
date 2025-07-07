@@ -145,4 +145,4 @@ If you prefer to build Glyph yourself, you'll need Python 3.9+ and pip.
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the GNU GPLv3  License. See the [LICENSE](LICENSE) file for details.
