@@ -76,7 +76,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Glyph-${{ runner.os }}
-          path: release/
+          path: release/*
 
   release:
     name: Create GitHub Release
