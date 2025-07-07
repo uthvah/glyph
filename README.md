@@ -23,7 +23,7 @@
 </p>
 
 <p align="center">
-  <img src="images/3.png" alt="Glyph Dashboard" width="800"/>
+  <img src="images/2.png" alt="Glyph Dashboard" width="800"/>
 </p>
 
 <p align="center">
