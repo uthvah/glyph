@@ -117,7 +117,7 @@ If you prefer to build Glyph yourself, you'll need Python 3.9+ and pip.
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/your-username/glyph.git
+    git clone https://github.com/uthvah/glyph.git
     cd glyph
     ```
 
@@ -130,8 +130,6 @@ If you prefer to build Glyph yourself, you'll need Python 3.9+ and pip.
 3.  **Install dependencies:**
     ```bash
     pip install -r requirements.txt 
-    # NOTE: You will need a requirements.txt file for this.
-    # Create one with: pip freeze > requirements.txt
     ```
 
 4.  **Compile Qt Resources:**
