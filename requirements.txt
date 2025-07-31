@@ -1,0 +1,12 @@
+# ===============================================
+# Requirements for Glyph Password Manager
+# ===============================================
+
+# --- Core Application Dependencies ---
+# These are required to run the application from source.
+
+PySide6         # The GUI framework (Qt for Python)
+requests        # For the 'Pwned Passwords' breach check
+argon2-cffi     # The Argon2id key derivation function
+cryptography    # For AES-256-GCM encryption
+zxcvbn          # Password strength estimation
