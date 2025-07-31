@@ -47,6 +47,7 @@ Glyph is a password manager built on a simple principle: **your data is yours**.
 ## 🚀 Getting Started
 
 Go to the [**Latest Releases Page**](https://github.com/your_username/glyph/releases/latest) and download the appropriate package for your operating system.
+(Installers coming soon! Ignore the table for now.)
 
 | Operating System | Download File | Instructions |
 | :--- | :--- | :--- |
