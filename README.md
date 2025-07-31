@@ -46,14 +46,7 @@ Glyph is a password manager built on a simple principle: **your data is yours**.
 
 ## 🚀 Getting Started
 
-Go to the [**Latest Releases Page**](https://github.com/your_username/glyph/releases/latest) and download the appropriate package for your operating system.
-(Installers coming soon! Ignore the table for now.)
-
-| Operating System | Download File | Instructions |
-| :--- | :--- | :--- |
-| **Windows** | `Glyph-vX.Y.Z-Setup.exe` | Run the installer and follow the on-screen instructions. |
-| **macOS** | `Glyph-vX.Y.Z.dmg` | Open the DMG, then drag the **Glyph** icon into your **Applications** folder. |
-| **Linux** | `Glyph-vX.Y.Z.AppImage` | 1. Make the file executable: `chmod a+x Glyph-vX.Y.Z.AppImage`<br/>2. Run it: `./Glyph-vX.Y.Z.AppImage` |
+Installers coming soon!
 
 On first launch, you will be guided by a setup wizard to create your master password. **This password is the only key to your vault and cannot be recovered if lost.**
 
