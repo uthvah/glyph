@@ -116,22 +116,17 @@ pyside6-rcc resources.qrc -o resources_rc.py
 python3 your_main_script.py
 ```
 
-🗺️ Contributing & Roadmap
+## 🗺️ Contributing & Roadmap
 
 Glyph is an active project with the goal of becoming a premier, modern alternative to established password managers. Contributions are welcome! Feel free to open an issue to report bugs, suggest features, or submit a pull request.
 
 Key areas for future development:
+- Browser Extension Integration
+- TOTP (One-Time Password) Support
+- Additional Secure Fields (username, URL etc) and Notes
+- Advanced Import/Export (KeePass KDBX, etc.)
+- Plugin Architecture for Extensibility
 
-    Browser Extension Integration
-
-    TOTP (One-Time Password) Support
-
-    Additional Secure Fields and Notes
-
-    Advanced Import/Export (KeePass KDBX, etc.)
-
-    Plugin Architecture for Extensibility
-
-License
+## License
 
 This project is licensed under the GNU GPLv3 License. See the LICENSE file for details.
