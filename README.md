@@ -22,7 +22,7 @@
 <p align="center">
   <strong>This project is currently in a development stage. The code has not yet been professionally audited.</strong>
   <br />
-  <strong>PLEASE DO NOT USE THIS FOR STORING REAL PASSWORDS.</strong>
+  <strong>DO NOT USE THIS FOR STORING REAL PASSWORDS.</strong>
   <br />
   The purpose of this public repository is to invite review, feedback, and security audits from the open-source community.
 </p>
