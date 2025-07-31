@@ -18,6 +18,17 @@
 
 ---
 
+<h2 align="center">⚠️ In Development ⚠️</h2>
+<p align="center">
+  <strong>This project is currently in a development stage. The code has not yet been professionally audited.</strong>
+  <br />
+  <strong>PLEASE DO NOT USE THIS FOR STORING REAL PASSWORDS.</strong>
+  <br />
+  The purpose of this public repository is to invite review, feedback, and security audits from the open-source community.
+</p>
+
+---
+
 <p align="center">
   <img src="images/1.png" alt="Glyph Command Bar" width="750"/>
 </p>
