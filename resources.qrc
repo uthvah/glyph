@@ -13,5 +13,11 @@
     <file>icons/copy.svg</file>
     <file>icons/trash.svg</file>
     <file>icons/refresh.svg</file>
+    <file>icons/globe.svg</file>
+    <file>icons/shield-alert.svg</file>
+
+    <!-- SETUP WIZARD -->
+    <file>icons/glyph-logo.svg</file>
+    <file>icons/check-circle.svg</file>
 </qresource>
 </RCC>

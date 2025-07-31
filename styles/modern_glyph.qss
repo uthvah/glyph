@@ -1,5 +1,9 @@
+/* =================================================================== */
+/*                          Glyph Stylesheet                           */
+/* =================================================================== */
+
 /* --- Global & Main Window --- */
-#Container, #Dashboard, #SettingsView {
+#Container, #Dashboard, #SettingsView, QDialog {
     background-color: #222222;
     color: #e0e0e0;
     font-family: "Inter", sans-serif;
@@ -28,20 +32,65 @@
     height: 40px;
     padding: 0;
     text-align: center;
+    border-radius: 20px;
 }
 #CloseButton:hover {
     color: #ccc;
-    background-color: transparent;
-    border: 1px solid #5a5a5a;
-    border-radius: 20px;
+    background-color: #3a3a3a;
+    border: none;
 }
 #CloseButton:focus {
     outline: none;
     border: none;
     background-color: transparent;
-    border-radius: 20px;
 }
 
+
+/* --- Dialog & Wizard Styles --- */
+#WizardTitle, #ChangePasswordDialog #WizardTitle {
+    font-size: 24px;
+    font-weight: 600;
+    color: #f0f0f0;
+    padding-bottom: 5px;
+}
+
+#WizardDescription, QLabel {
+    color: #a0a0a0;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+#PasswordSetupInput, #ChangePasswordDialog QLineEdit {
+    background-color: #2c2c2c;
+    border: 1px solid #4f4f4f;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 16px;
+    padding: 10px;
+}
+#PasswordSetupInput:focus, #ChangePasswordDialog QLineEdit:focus {
+    border: 1px solid #4a90e2;
+}
+
+#ErrorLabel {
+    color: #e74c3c;
+    font-size: 13px;
+    font-weight: 500;
+    background-color: rgba(231, 76, 60, 0.1);
+    border: 1px solid rgba(231, 76, 60, 0.3);
+    border-radius: 5px;
+    padding: 8px;
+    text-align: center;
+}
+
+#WarningLabel {
+    color: #f39c12;
+    font-size: 13px;
+    background-color: rgba(243, 156, 18, 0.1);
+    border: 1px solid rgba(243, 156, 18, 0.3);
+    border-radius: 5px;
+    padding: 8px;
+}
 
 /* --- Specific Input Styles --- */
 #MainInput {
@@ -75,6 +124,7 @@ QLineEdit#inline-editor {
 #SettingsInput:focus {
     border-bottom: 1px solid #a0a0a0;
 }
+
 
 /* --- Dashboard & Settings --- */
 #DashboardTitle {
@@ -119,9 +169,48 @@ QLineEdit#inline-editor {
     margin-bottom: 5px;
 }
 
+#DangerSectionTitle {
+    font-size: 16px;
+    font-weight: 600;
+    color: #e74c3c;
+    border-bottom: 1px solid #c0392b;
+    padding-bottom: 10px;
+    margin-bottom: 5px;
+}
+
+#ResetConfirmInput {
+    background-color: #222222;
+    border: 1px solid #c0392b;
+    border-radius: 6px;
+    color: #f0f0f0;
+    font-size: 14px;
+    padding: 10px;
+}
+#ResetConfirmInput:focus {
+    border-color: #e74c3c;
+}
+
 #SettingsDescription, QLabel {
     color: #aaa;
     font-size: 14px;
+}
+
+QCheckBox {
+    spacing: 10px;
+    color: #ccc;
+    font-size: 14px;
+}
+QCheckBox::indicator {
+    width: 18px;
+    height: 18px;
+    border: 1px solid #555;
+    border-radius: 4px;
+    background-color: #222;
+}
+QCheckBox::indicator:checked {
+    background-color: #4a90e2;
+    border-color: #4a90e2;
+    image: url(:/icons/check.svg);
 }
 
 #CommandLabel {
@@ -134,6 +223,8 @@ QLineEdit#inline-editor {
     padding: 5px 10px;
 }
 
+
+/* --- Buttons --- */
 QPushButton {
     background-color: #3a3a3a;
     color: #f0f0f0;
@@ -143,6 +234,7 @@ QPushButton {
     font-size: 14px;
     font-weight: 500;
     outline: none;
+    min-width: 80px;
 }
 QPushButton:hover {
     background-color: #4a4a4a;
@@ -155,6 +247,49 @@ QPushButton:default {
 QPushButton:default:hover {
     background-color: #5aa1f2;
 }
+QPushButton:disabled {
+    background-color: #2c2c2c;
+    color: #666;
+    border-color: #444;
+}
+
+#DangerButton, #ConfirmResetButton {
+    background-color: #c0392b;
+    border-color: #c0392b;
+    color: #ffffff;
+    font-weight: 600;
+}
+#DangerButton:hover, #ConfirmResetButton:hover {
+    background-color: #e74c3c;
+    border-color: #e74c3c;
+}
+
+#ConfirmResetButton:disabled {
+    background-color: #5a2d27;
+    border-color: #823c32;
+    color: #a07a75;
+}
+
+/* --- Icon Buttons --- */
+.icon-button {
+    background-color: transparent;
+    border: none;
+    border-radius: 16px; 
+    outline: none;
+    min-width: 32px;
+    max-width: 32px;
+    min-height: 32px;
+    max-height: 32px;
+    padding: 0;
+}
+.icon-button:hover {
+    background-color: #3a3a3a;
+}
+.icon-button:focus {
+    outline: none;
+    border: none;
+}
+
 
 /* --- Table --- */
 QTableWidget {
@@ -162,7 +297,6 @@ QTableWidget {
     border: none;
     gridline-color: #333;
 }
-
 QHeaderView::section {
     background-color: transparent;
     color: #888;
@@ -173,7 +307,6 @@ QHeaderView::section {
     font-weight: 600;
     text-transform: uppercase;
 }
-
 QTableWidget::item {
     padding-left: 15px;
     padding-right: 15px;
@@ -181,35 +314,27 @@ QTableWidget::item {
     border-bottom: 1px solid #333;
     background-color: #262626;
 }
-
+QTableWidget::item:focus {
+    outline: none;
+    border: none;
+    background-color: #2c2c2c;
+}
 #StrengthLabel {
     color: #aaa;
     font-size: 13px;
     font-weight: 500;
 }
 
-/* --- Icon Buttons --- */
-.icon-button {
-    background-color: transparent;
-    border: none;
-    border-radius: 20px;
-    outline: none;
-}
-.icon-button:hover {
-    background-color: #3a3a3a;
-}
 
-/* --- Modern Floating Pill Search Bar --- */
+/* --- Search & Scrollbar --- */
 #SearchContainer {
     background-color: #3c3c3c;
     border: 1px solid #4f4f4f;
     border-radius: 20px;
 }
-
 #SearchContainer:focus-within {
     border: 1px solid #a0a0a0;
 }
-
 #SearchLineEdit {
     background-color: transparent;
     border: none;
@@ -218,15 +343,12 @@ QTableWidget::item {
     padding: 8px 0;
 }
 
-
-/* --- True Minimalist Floating Scrollbar --- */
 QScrollBar:vertical {
     border: none;
     background: transparent;
     width: 16px;
     margin: 0;
 }
-
 QScrollBar::handle:vertical {
     background: #5a5a5a;
     min-height: 30px;
@@ -234,18 +356,15 @@ QScrollBar::handle:vertical {
     width: 6px;
     margin: 0px 5px 0px 5px;
 }
-
 QScrollBar::handle:vertical:hover {
     background: #757575;
 }
-
 QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
     height: 0;
     width: 0;
     background: none;
     border: none;
 }
-
 QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
     background: none;
 }
